@@ -150,4 +150,5 @@ func ConnectionSqlite() error {
 
 func AutoMigrate() {
 	DB.AutoMigrate(&models.Category{})
+	DB.AutoMigrate(&models.User{})
 }
