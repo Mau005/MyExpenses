@@ -18,6 +18,9 @@ func NewRouter() *mux.Router {
 	security.Use(middleware.CommonMiddleware)
 	security.Use(middleware.SessionMiddleware)
 	security.HandleFunc("/users", userHandler.UsersHandler).Methods("GET")
+	security.HandleFunc("/user/{email}", userHandler.GetUserHandler).Methods("GET")
+	security.HandleFunc("/user/{email}", userHandler.DeleteUserHandler).Methods("DELETE")
+	security.HandleFunc("/user", userHandler.PatchUserHandler).Methods("PATCH")
 
 	return router
 

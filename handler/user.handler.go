@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -9,6 +10,7 @@ import (
 	"github.com/Mau005/MyExpenses/configuration"
 	"github.com/Mau005/MyExpenses/controller"
 	"github.com/Mau005/MyExpenses/models"
+	"github.com/gorilla/mux"
 )
 
 type Userhandler struct{}
@@ -86,6 +88,77 @@ func (ac *Userhandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 			TransactionId: "1",
 			CorrelationId: "1",
 		})
+		return
+	}
+
+	json.NewEncoder(w).Encode(user)
+
+}
+
+func (ac *Userhandler) GetUserHandler(w http.ResponseWriter, r *http.Request) {
+
+	arguments := mux.Vars(r)
+
+	var uc controller.UserController
+	user, err := uc.GetUser(arguments["email"])
+	if err != nil {
+		w.WriteHeader(http.StatusNotAcceptable)
+		json.NewEncoder(w).Encode(models.Exception{
+			Error:         configuration.ERROR_SERVICE_USER,
+			Status:        http.StatusNotAcceptable,
+			Message:       err.Error(),
+			TimeStamp:     time.Now(),
+			TransactionId: "1",
+			CorrelationId: "1",
+		})
+		return
+	}
+
+	json.NewEncoder(w).Encode(user)
+
+}
+
+func (ac *Userhandler) DeleteUserHandler(w http.ResponseWriter, r *http.Request) {
+
+	arguments := mux.Vars(r)
+
+	var uc controller.UserController
+
+	err := uc.DelUser(arguments["email"])
+	if err != nil {
+		w.WriteHeader(http.StatusNotAcceptable)
+		json.NewEncoder(w).Encode(models.Exception{
+			Error:         configuration.ERROR_SERVICE_USER,
+			Status:        http.StatusNotAcceptable,
+			Message:       err.Error(),
+			TimeStamp:     time.Now(),
+			TransactionId: "1",
+			CorrelationId: "1",
+		})
+		return
+	}
+
+	json.NewEncoder(w).Encode(struct {
+		Message string `json:"message"`
+		Status  int    `json:"status"`
+	}{
+		Message: configuration.DELETE_USER,
+	})
+
+}
+
+func (ac *Userhandler) PatchUserHandler(w http.ResponseWriter, r *http.Request) {
+	var uc controller.UserController
+	var data map[string]interface{}
+
+	err := json.NewDecoder(r.Body).Decode(&data)
+
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	user, err := uc.PutchUser(data)
+	if err != nil {
+		fmt.Println(err.Error())
 		return
 	}
 

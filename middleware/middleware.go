@@ -34,7 +34,7 @@ func SessionMiddleware(next http.Handler) http.Handler {
 			json.NewEncoder(w).Encode(models.Exception{
 				Error:         configuration.ERROR_SERVICE_USER,
 				Status:        http.StatusNetworkAuthenticationRequired,
-				Message:       err.Error(),
+				Message:       configuration.ERROR_PRIVILEGES_GEN,
 				TimeStamp:     time.Now(),
 				TransactionId: "1",
 				CorrelationId: "1",
@@ -47,7 +47,7 @@ func SessionMiddleware(next http.Handler) http.Handler {
 				json.NewEncoder(w).Encode(models.Exception{
 					Error:         configuration.ERROR_SERVICE_USER,
 					Status:        http.StatusNetworkAuthenticationRequired,
-					Message:       err.Error(),
+					Message:       configuration.ERROR_PRIVILEGES_GEN,
 					TimeStamp:     time.Now(),
 					TransactionId: "1",
 					CorrelationId: "1",
