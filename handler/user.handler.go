@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -154,11 +153,24 @@ func (ac *Userhandler) PatchUserHandler(w http.ResponseWriter, r *http.Request) 
 	err := json.NewDecoder(r.Body).Decode(&data)
 
 	if err != nil {
-		fmt.Println(err.Error())
+		w.WriteHeader(http.StatusNotAcceptable)
+		json.NewEncoder(w).Encode(models.Exception{
+			Error:     configuration.ERROR_SERVICE_CATEGORY,
+			Status:    http.StatusNotAcceptable,
+			Message:   err.Error(),
+			TimeStamp: time.Now(),
+		})
+		return
 	}
 	user, err := uc.PutchUser(data)
 	if err != nil {
-		fmt.Println(err.Error())
+		w.WriteHeader(http.StatusNotAcceptable)
+		json.NewEncoder(w).Encode(models.Exception{
+			Error:     configuration.ERROR_SERVICE_CATEGORY,
+			Status:    http.StatusNotAcceptable,
+			Message:   err.Error(),
+			TimeStamp: time.Now(),
+		})
 		return
 	}
 
