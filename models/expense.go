@@ -7,8 +7,9 @@ import (
 type Expenses struct {
 	gorm.Model
 	Name        string
+	Description string
 	AmountTotal int
-	IdCategory  uint
-	Category    Category  `gorm:"foreignKey:IdCategory"`
+	IDCategory  uint
+	Category    Category  `gorm:"foreignKey:IDCategory"`
 	Product     []Product `gorm:"foreignKey:ExpensesID"`
 }
