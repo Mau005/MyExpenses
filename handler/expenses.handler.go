@@ -2,7 +2,6 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -16,7 +15,6 @@ import (
 type ExpensesHandler struct{}
 
 func (ex *ExpensesHandler) CreateExpensesHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Entra a la consulta?")
 	var exp controller.ExpensesController
 
 	name := r.FormValue("name")
