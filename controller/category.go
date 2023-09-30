@@ -35,6 +35,14 @@ func (cc *CategoryController) DelCategory(idCategory uint) error {
 	return nil
 }
 
+func (cc *CategoryController) GetCategoryName(nameCategory string) (category models.Category, err error) {
+
+	if err = db.DB.Where("name = ?", nameCategory).First(&category).Error; err != nil {
+		return category, err
+	}
+	return category, nil
+}
+
 func (cc *CategoryController) GetCategory(id uint) (category models.Category, err error) {
 
 	if err = db.DB.Where("id = ?", id).First(&category).Error; err != nil {

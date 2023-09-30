@@ -149,6 +149,8 @@ func ConnectionSqlite() error {
 }
 
 func AutoMigrate() {
+	DB.AutoMigrate(&models.Expenses{})
+	DB.AutoMigrate(&models.Product{})
 	DB.AutoMigrate(&models.Category{})
 	DB.AutoMigrate(&models.User{})
 }
