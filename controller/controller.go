@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/Mau005/MyExpenses/configuration"
@@ -79,4 +80,13 @@ func (ac *ApiController) AuthenticateJWT(tokenSession string) error {
 
 	return nil
 
+}
+
+// Method default ID for generate in api
+func (ac *ApiController) ParseUintDefault(id string, defaultId uint) uint {
+	idNew, err := strconv.ParseUint(id, 10, 64)
+	if err != nil {
+		return defaultId
+	}
+	return uint(idNew)
 }
