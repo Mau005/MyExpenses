@@ -10,12 +10,14 @@ const (
 	NAME_SESSION     = "Authorization"
 	DELETE_USER      = "Se ha eliminado el usuario"
 	DELETE_CATEGORY  = "Se ha eliminado la categoria"
+	DELETE_EXPENSES  = "Se ha eliminado la lista de gastos"
 )
 
 const (
 	ERROR_EMPTY_FIELD       = "Se debe ingresar datos"
 	ERROR_SERVICE_USER      = "Service error in user"
 	ERROR_SERVICE_CATEGORY  = "Service error in Category"
+	ERROR_SERVICE_EXPENSES  = "Service error in Expenses"
 	ERROR_PRIVILEGES_GEN    = "No Tienes los privilegios para acceder"
 	ERROR_UPDATE_USER_EMAIL = "No se puede encontrar el usuario a actualizar"
 	ERROR_UPDATE_CATEGORY   = "No se puede encontrar la categorya a actualizar"
