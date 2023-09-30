@@ -7,6 +7,6 @@ type Product struct {
 	Name        string
 	Description string
 	Ammount     uint
-	Count       uint
+	Price       uint
 	ExpensesID  uint
 }
