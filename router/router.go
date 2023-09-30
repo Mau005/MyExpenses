@@ -29,6 +29,13 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/category/{id}", categoryHandler.DelCategoryHandler).Methods("DELETE")
 	security.HandleFunc("/category", categoryHandler.PatchCategoryHandler).Methods("PATCH")
 
+	var expensesHandler handler.ExpensesHandler
+	security.HandleFunc("/expenses", expensesHandler.GetAllExpensesHandler).Methods("GET")
+	security.HandleFunc("/expense", expensesHandler.CreateExpensesHandler).Methods("POST")
+	security.HandleFunc("/expense/{id}", expensesHandler.GetExpensesHandler).Methods("GET")
+	security.HandleFunc("/expense/{id}", expensesHandler.DelExpensesHandler).Methods("DELETE")
+	security.HandleFunc("/expense", expensesHandler.PatchExpensesHandler).Methods("PATCH")
+
 	return router
 
 }
