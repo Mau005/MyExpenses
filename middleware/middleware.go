@@ -23,7 +23,7 @@ func CommonMiddleware(next http.Handler) http.Handler {
 
 func SessionMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		session, err := configuration.STORE.Get(r, configuration.NAME_SESSION)
+		session, err := configuration.Store.Get(r, configuration.NAME_SESSION)
 		if err != nil {
 			http.Error(w, "Error al obtener la sesión", http.StatusInternalServerError)
 			return
