@@ -10,6 +10,7 @@ type Expenses struct {
 	Description string
 	AmountTotal int
 	IDCategory  uint
+	UserID      uint
 	Category    Category  `gorm:"foreignKey:IDCategory"`
 	Product     []Product `gorm:"foreignKey:ExpensesID"`
 }

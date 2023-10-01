@@ -177,3 +177,18 @@ func (ac *Userhandler) PatchUserHandler(w http.ResponseWriter, r *http.Request) 
 	json.NewEncoder(w).Encode(user)
 
 }
+
+func (ac Userhandler) Session(w http.ResponseWriter, r *http.Request) {
+	var api controller.ApiController
+	user, err := api.GetSessionUser(r)
+	if err != nil {
+		json.NewEncoder(w).Encode(models.Exception{
+			Error:     configuration.ERROR_SERVICE_SECURITY,
+			Status:    http.StatusNotAcceptable,
+			Message:   err.Error(),
+			TimeStamp: time.Now(),
+		})
+		return
+	}
+	json.NewEncoder(w).Encode(user)
+}

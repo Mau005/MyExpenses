@@ -35,9 +35,14 @@ func (ex *ExpensesHandler) CreateExpensesHandler(w http.ResponseWriter, r *http.
 		return
 	}
 
+	//TODO: An error may occur in this part, if there is a case where the user does not go through the middelware
+	var api controller.ApiController
+	user, _ := api.GetSessionUser(r)
+
 	expense := models.Expenses{Name: name,
 		Category:    category,
-		Description: description}
+		Description: description,
+		UserID:      user.ID}
 
 	expense, err = exp.CreateExpenses(expense)
 	if err != nil {

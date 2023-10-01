@@ -33,7 +33,7 @@ func (uc *UserController) CreateUser(email, password string) (models.User, error
 
 }
 func (uc *UserController) GetUser(email string) (user models.User, err error) {
-	if err = db.DB.Where("email = ?", strings.ToLower(email)).First(&user).Error; err != nil {
+	if err = db.DB.Preload("Expenses").Where("email = ?", strings.ToLower(email)).First(&user).Error; err != nil {
 		return user, err
 	}
 	return user, nil
