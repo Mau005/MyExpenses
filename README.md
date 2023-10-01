@@ -1,4 +1,13 @@
+[![Discord Channel](https://img.shields.io/discord/582881500257845260.svg?style=flat-square&logo=discord)](https://discord.gg/6bKnNW88)
+[![GitHub issues](https://img.shields.io/github/issues/Mau005/MyExpenses)](https://github.com/Mau005/MyExpenses/issues)
+[![GitHub pull request](https://img.shields.io/github/issues/Mau005/MyExpenses)](https://github.com/Mau005/MyExpenses/pulls)
+[![Contributors](https://img.shields.io/github/contributors/Mau005/MyExpenses.svg?style=flat-square)](https://github.com/Mau005/MyExpenses/graphs/contributors)
+
+![GitHub repo size](https://img.shields.io/github/repo-size/Mau005/MyExpenses)
+
+
 # MyExpenses
+
 The idea of creating this APIRest was for control reasons, where I want to build a shared expense system, where the individual can connect, manage his expenses, and even adapt those of another user such as his wife or children, and be able to see the expense of each
 
 ## Apps
@@ -15,6 +24,10 @@ It refers to how much expenses we have, this is a list that will contain product
 
 ### Product: 
 it will have a name, count and price, and it can be previewed, for example, calculating in the supermarket and while you do it and `finish` you spend the total production of your own account
+
+## Use:
+
+
 
 ## Donate
 If you enjoy the project and like the work that has been done, feel free to donate. Donations are not necessary, but anything is appreciated. Thank you!
