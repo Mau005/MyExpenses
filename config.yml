@@ -1,0 +1,19 @@
+
+DataBase:
+  Host: localhost
+  Port: 3306
+  User: root
+  Password: 12345
+  NameDB: MyExpenses
+  SqlitePath: MyExpenses.db
+  Engine: mysql
+Server:
+  Ip: 127.0.0.1
+  Port: 8000
+  Debug: true
+  LengthSecurity: 128
+Email:
+  SmtpUserName: ""
+  Password: ""
+  SmtpPort: 465
+  SmtpServer: ""
