@@ -1,8 +1,7 @@
 package controller
 
 import (
-	"crypto/rand"
-	"encoding/base64"
+	"errors"
 	"net/http"
 	"strconv"
 	"time"
@@ -38,7 +37,7 @@ func (ac *ApiController) GenerateToken(user models.User) (tokenString string, er
 
 	claims := ac.generateClaims(user)
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err = token.SignedString([]byte("secret-key"))
+	tokenString, err = token.SignedString([]byte(configuration.Security))
 	if err != nil {
 		return tokenString, err
 	}
@@ -46,7 +45,7 @@ func (ac *ApiController) GenerateToken(user models.User) (tokenString string, er
 }
 
 func (ac *ApiController) SaveSession(tokenString *string, w http.ResponseWriter, r *http.Request) {
-	session, _ := configuration.STORE.Get(r, configuration.NAME_SESSION)
+	session, _ := configuration.Store.Get(r, configuration.NAME_SESSION)
 	if tokenString == nil {
 		session.Values["token"] = nil
 	} else {
@@ -56,22 +55,10 @@ func (ac *ApiController) SaveSession(tokenString *string, w http.ResponseWriter,
 	session.Save(r, w)
 }
 
-func (ac *ApiController) GenerateSecretKey(lenSecurity int) (string, error) {
-	key := make([]byte, lenSecurity)
-	_, err := rand.Read(key)
-	if err != nil {
-		return "", err
-	}
-
-	encodedKey := base64.StdEncoding.EncodeToString(key)
-
-	return encodedKey, nil
-}
-
 func (ac *ApiController) AuthenticateJWT(tokenSession string) error {
 
 	token, err := jwt.Parse(tokenSession, func(token *jwt.Token) (interface{}, error) {
-		return []byte("secret-key"), nil
+		return []byte(configuration.Security), nil
 	})
 
 	if err != nil || !token.Valid {
@@ -89,4 +76,42 @@ func (ac *ApiController) ParseUintDefault(id string, defaultId uint) uint {
 		return defaultId
 	}
 	return uint(idNew)
+}
+
+func (ac *ApiController) GetSessionClaims(r *http.Request) (*models.Claims, error) {
+	claims := &models.Claims{}
+	session, err := configuration.Store.Get(r, configuration.NAME_SESSION)
+	if err != nil {
+		return claims, err
+	}
+
+	token, ok := session.Values["token"].(string)
+	if !ok {
+		return claims, errors.New("Token de session invalido")
+	}
+	tokenKey := []byte(configuration.Security)
+	tokenParser := jwt.Parser{}
+
+	_, err = tokenParser.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
+		return tokenKey, nil
+	})
+	if err != nil {
+		return claims, err
+	}
+	return claims, nil
+}
+
+func (ac *ApiController) GetSessionUser(r *http.Request) (models.User, error) {
+	claims, err := ac.GetSessionClaims(r)
+	if err != nil {
+		return models.User{}, err
+	}
+
+	var uc UserController
+	user, err := uc.GetUser(claims.UserName)
+	if err != nil {
+		return user, err
+	}
+
+	return user, nil
 }
