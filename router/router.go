@@ -22,6 +22,9 @@ func NewRouter() *mux.Router {
 	security.HandleFunc("/user/{email}", userHandler.DeleteUserHandler).Methods("DELETE")
 	security.HandleFunc("/user", userHandler.PatchUserHandler).Methods("PATCH")
 
+	//Check session user in api
+	security.HandleFunc("/session", userHandler.Session).Methods("GET")
+
 	var categoryHandler handler.Categoryhandler
 	security.HandleFunc("/categorys", categoryHandler.GetAllCategoryHandler).Methods("GET")
 	security.HandleFunc("/category", categoryHandler.CreateCategoryHandler).Methods("POST")
