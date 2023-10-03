@@ -1,6 +1,6 @@
 [![Discord Channel](https://img.shields.io/discord/582881500257845260.svg?style=flat-square&logo=discord)](https://discord.gg/6bKnNW88)
 [![GitHub issues](https://img.shields.io/github/issues/Mau005/MyExpenses)](https://github.com/Mau005/MyExpenses/issues)
-[![GitHub pull request](https://img.shields.io/github/issues/Mau005/MyExpenses)](https://github.com/Mau005/MyExpenses/pulls)
+[![GitHub pull request](https://img.shields.io/github/pulls/Mau005/MyExpenses)](https://github.com/Mau005/MyExpenses/pulls)
 [![Contributors](https://img.shields.io/github/contributors/Mau005/MyExpenses.svg?style=flat-square)](https://github.com/Mau005/MyExpenses/graphs/contributors)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Mau005/MyExpenses)
